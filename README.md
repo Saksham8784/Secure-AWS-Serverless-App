@@ -124,7 +124,7 @@ Attach:
 * **Click on Deploy**  
 * **Create a test**  
 *  **Name: myTest**  
-*  **Use existing template to test**		 
+*  **Add**		 
 
    **{**
 
