@@ -124,7 +124,7 @@ Attach:
 * **Click on Deploy**  
 * **Create a test**  
 *  **Name: myTest**  
-*  **Add**		 
+*  **Use existing template to test**		 
 
    **{**
 
@@ -188,7 +188,7 @@ Attach:
 * **Click on Deploy**  
 * **Create a test for `postStudent`lambda function**  
 * **Name: myTest**  
-* **Use existing template to test**		 
+* **Add**		 
 
   **{**
 
