@@ -1,4 +1,4 @@
-var API_ENDPOINT = "https://0cd6l809mi.execute-api.us-east-1.amazonaws.com/prod";
+var API_ENDPOINT = "https://XXXXXXXYYYY.execute-api.us-east-1.amazonaws.com/prod";
 
 // POST
 document.getElementById("savestudent").onclick = function () {
