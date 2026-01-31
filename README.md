@@ -90,47 +90,30 @@ Attach:
 
 **Step 2: Paste the following Code**
 
-**import json**
+import json
+import boto3
+from decimal import Decimal
 
-**import boto3**
+class DecimalEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, Decimal):
+            return int(obj) if obj % 1 == 0 else float(obj)
+        return super().default(obj)
 
-**from decimal import Decimal**
+def lambda_handler(event, context):
+    dynamodb = boto3.resource('dynamodb')
+    table = dynamodb.Table('studentData')
 
-**class DecimalEncoder(json.JSONEncoder):**
+    response = table.scan()
+    data = response['Items']
 
-   **def default(self, obj):**
-
-       **if isinstance(obj, Decimal):**
-
-           **\# convert Decimal → int or float**
-
-           **return int(obj) if obj % 1 \== 0 else float(obj)**
-
-       **return super(DecimalEncoder, self).default(obj)**
-
-**def lambda\_handler(event, context):**
-
-   **dynamodb \= boto3.resource('dynamodb')**
-
-   **table \= dynamodb.Table('studentData')**
-
-   **response \= table.scan()**
-
-   **data \= response\['Items'\]**
-
-   **return {**
-
-       **"statusCode": 200,**
-
-       **"headers": {**
-
-           **"Content-Type": "application/json"**
-
-       **},**
-
-       **"body": json.dumps(data, cls\=DecimalEncoder)**
-
-   **}**
+    return {
+        "statusCode": 200,
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "body": json.dumps(data, cls=DecimalEncoder)
+    }
 
 * **Click on Deploy**  
 * **Create a test**  
@@ -168,58 +151,39 @@ Attach:
 
 **Step 2: Paste the following Code**
 
-**import json**
+import json
+import boto3
 
-**import boto3**
+dynamodb = boto3.resource('dynamodb')
+table = dynamodb.Table('studentData')
 
-**dynamodb \= boto3.resource('dynamodb')**
+def lambda_handler(event, context):
+    body = json.loads(event['body']) if 'body' in event else event
 
-**table \= dynamodb.Table('studentData')**
+    table.put_item(
+        Item={
+            'studentID': body['studentID'],
+            'name': body['name'],
+            'class': body['class'],
+            'age': int(body['age'])
+        }
+    )
 
-**def lambda\_handler(event, context):**
-
-   **body \= json.loads(event\['body'\]) if 'body' in event else event**
-
-   **table.put\_item(**
-
-       **Item\={**
-
-           **'studentID': body\['studentID'\],**
-
-           **'name': body\['name'\],**
-
-           **'class': body\['class'\],**
-
-           **'age': int(body\['age'\])**
-
-       **}**
-
-   **)**
-
-   **\# IMPORTANT: return RAW JSON (same style as GET)**
-
-   **return {**
-
-       **"message": "Student data saved successfully"**
-
-   **}**
+    return {
+        "message": "Student data saved successfully"
+    }
 
 * **Click on Deploy**  
 * **Create a test for `postStudent`lambda function**  
 * **Name: myTest**  
 * **Use existing template to test**		 
 
-  **{**
-
-      **"studentID": "1",**
-
-      **"name": "Ram",**
-
-      **"class": "10",**
-
-      **"age": 15**
-
-    **}**
+  {
+  "studentID": "1",
+  "name": "Ram",
+  "class": "10",
+  "age": 15
+  }
 
 * **Click on Test Button** 
 
@@ -324,7 +288,7 @@ Attach:
 
  7️⃣ **Now we will configure with Cloudfront**
 
-        **Why?**
+       Why?
 
 [**http://studentdata-serverless-deployment-30jan.s3-website-us-east-1.amazonaws.com**](http://studentdata-serverless-deployment-30jan.s3-website-us-east-1.amazonaws.com)
 
