@@ -53,7 +53,7 @@ AWS Console → DynamoDB → **Create table**
 * **Partition key**:  
   * Name: `studentID`  
   * Sort Key: Leave it  
-* Table Setting:  
+* Table Setting: Default
 * Create table
 
 ✅ Table status must be **ACTIVE**
