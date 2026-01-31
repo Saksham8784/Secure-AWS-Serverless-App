@@ -7,7 +7,7 @@ This project implements a **secure serverless web application on Amazon Web Serv
 The backend architecture uses **Amazon API Gateway**, **AWS Lambda**, and **Amazon DynamoDB**. API Gateway exposes RESTful endpoints that invoke Lambda functions to process requests, while DynamoDB stores student information in a scalable NoSQL database. The application follows a **fully serverless architecture**, eliminating server management, enabling automatic scaling, and operating on a pay-as-you-use pricing model. By integrating CloudFront with AWS WAF and IAM-based access control, the project demonstrates a secure, scalable, and production-ready serverless web application.
 
 ## **Tech Stack Used** 
-
+ 
 ### **☁️ Cloud Platform**
 
 * **Amazon Web Services (AWS)**
